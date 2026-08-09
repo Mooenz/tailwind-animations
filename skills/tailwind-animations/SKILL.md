@@ -3,11 +3,12 @@ name: tailwind-animations
 description: >
   Use the tailwind-animations npm package (CSS-only Tailwind CSS v4 plugin) to add
   ready-made animation utilities: fade, slide, zoom, flip, bounce, jelly, dialog
-  entry/exit, scroll/view timelines, duration/delay/steps/iteration/fill-mode, and
-  animate-slide-distance. Use when the user wants CSS animations with Tailwind,
-  animate-* classes, motion utilities, dialog animations, scroll-driven CSS motion,
-  or to install/configure tailwind-animations. Triggers: "tailwind animations",
-  "animate-fade-in", "animate-dialog", "slide-distance", "tailwind motion plugin",
+  entry/exit, scroll/view timelines, scroll-mask edge fades, duration/delay/steps/
+  iteration/fill-mode, and animate-slide-distance. Use when the user wants CSS
+  animations with Tailwind, animate-* classes, motion utilities, dialog animations,
+  scroll-driven CSS motion, scroll-mask fading edges, or to install/configure
+  tailwind-animations. Triggers: "tailwind animations", "animate-fade-in",
+  "animate-dialog", "scroll-mask", "slide-distance", "tailwind motion plugin",
   /tailwind-animations.
 license: MIT
 compatibility: Requires Tailwind CSS v4 in the consumer project
@@ -16,7 +17,7 @@ metadata:
   version: "1.0.2"
   organization: midudev
   category: css
-  tags: tailwindcss, animations, css, motion, utilities, dialog, scroll-timeline
+  tags: tailwindcss, animations, css, motion, utilities, dialog, scroll-timeline, scroll-mask
   homepage: https://tailwind-animations.com
   playground: https://tailwind-animations.com/playground/
   repository: https://github.com/midudev/tailwind-animations
@@ -40,6 +41,7 @@ Help the user **use** the [`tailwind-animations`](https://www.npmjs.com/package/
 - Configuring `tailwind-animations` after `npm install`
 - Animating native `<dialog>` open/close
 - Scroll- or view-driven CSS animations
+- Fading edges of overflow/scroll containers (`scroll-mask-*`)
 - Customizing slide distance, duration, delay, steps, iteration, fill mode
 
 ## Install in the consumer project
@@ -118,6 +120,32 @@ Also: `animate-dialog-fade`, `animate-dialog-zoom`, `animate-dialog-from-bottom|
 </div>
 ```
 
+### Scroll mask (fade overflow edges)
+
+Pure CSS edge fades driven by `animation-timeline: scroll()`. Apply on the scroll container (needs overflow).
+
+```html
+<!-- Vertical list: fade top & bottom by scroll position -->
+<ul class="scroll-mask-y max-h-64 overflow-y-auto">…</ul>
+
+<!-- Horizontal chips -->
+<div class="scroll-mask-x flex overflow-x-auto">…</div>
+
+<!-- Single edge or custom opaque-stop (mirrors Tailwind mask-from) -->
+<div class="scroll-mask-b-from-80% overflow-y-auto">…</div>
+<div class="scroll-mask-x-from-90% overflow-x-auto">…</div>
+<div class="scroll-mask-r-from-[calc(100%-2rem)] overflow-x-auto">…</div>
+```
+
+| Goal | Classes |
+|------|---------|
+| All four edges | `scroll-mask`, `scroll-mask-from-*` |
+| Vertical axis | `scroll-mask-y`, `scroll-mask-y-from-*` |
+| Horizontal axis | `scroll-mask-x`, `scroll-mask-x-from-*` |
+| One edge | `scroll-mask-t\|b\|l\|r`, `scroll-mask-t-from-*` (etc.) |
+
+Default fade stop is `80%` (opaque until 80%, then transparent at the edge). Requires browser support for `animation-timeline: scroll()`.
+
 ## Animation catalog (79)
 
 Use as `animate-{name}`:
@@ -177,4 +205,12 @@ Prefer Markdown over scraping HTML:
 
 ```html
 <dialog class="animate-dialog animate-dialog-zoom animate-dialog-duration-normal">…</dialog>
+```
+
+**Scrollable panel with edge fade**
+
+```html
+<div class="scroll-mask-y max-h-80 overflow-y-auto rounded-xl border p-4">
+  …
+</div>
 ```

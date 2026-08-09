@@ -77,6 +77,22 @@ Browse: [skills.sh/midudev/tailwind-animations](https://skills.sh/midudev/tailwi
 </div>
 ```
 
+### Scroll mask (fade overflow edges)
+
+Fade the edges of a scroll container based on scroll position — pure CSS (`animation-timeline: scroll()` + `mask-image`), no JavaScript.
+
+```html
+<!-- Vertical / horizontal axes -->
+<ul class="scroll-mask-y max-h-64 overflow-y-auto">…</ul>
+<div class="scroll-mask-x flex overflow-x-auto">…</div>
+
+<!-- Single edge + custom opaque stop (mirrors Tailwind mask-from) -->
+<div class="scroll-mask-b-from-80% overflow-y-auto">…</div>
+<div class="scroll-mask-r-from-[calc(100%-2rem)] overflow-x-auto">…</div>
+```
+
+Also: `scroll-mask` (all four edges), `scroll-mask-t|b|l|r`, and `scroll-mask-*-from-*`. Requires browser support for `animation-timeline: scroll()`.
+
 ### Animates Timeline
 
 This plugin also brings a utility class to animate elements based on their position in the window. You can use the class `view-animate-single` or `view-animate-[animation]` to generate any name for your timeline.
@@ -123,3 +139,7 @@ This plugin also brings a utility class to animate elements based on their posit
 <a href="https://github.com/midudev/tailwind-animations/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=midudev/tailwind-animations" />
 </a>
+
+## Credits
+
+- `scroll-mask` utilities inspired by [Tim Wilson’s scroll-mask](https://twilson.net/scroll-mask).

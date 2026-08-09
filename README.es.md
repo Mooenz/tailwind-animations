@@ -68,6 +68,22 @@ Este plugin trae varias clases de utilidad así como varias animaciones CSS list
 </div>
 ```
 
+### Scroll mask (desvanecer bordes con scroll)
+
+Desvanece los bordes de un contenedor con overflow según la posición de scroll — CSS puro (`animation-timeline: scroll()` + `mask-image`), sin JavaScript.
+
+```html
+<!-- Ejes vertical / horizontal -->
+<ul class="scroll-mask-y max-h-64 overflow-y-auto">…</ul>
+<div class="scroll-mask-x flex overflow-x-auto">…</div>
+
+<!-- Un solo borde + stop personalizado (como mask-from de Tailwind) -->
+<div class="scroll-mask-b-from-80% overflow-y-auto">…</div>
+<div class="scroll-mask-r-from-[calc(100%-2rem)] overflow-x-auto">…</div>
+```
+
+También: `scroll-mask` (cuatro bordes), `scroll-mask-t|b|l|r` y `scroll-mask-*-from-*`. Requiere soporte de navegador para `animation-timeline: scroll()`.
+
 ### Animates Timeline
 
 Este plugin también trae una clase de utilidad para animar elementos basados en su posición en la ventana. Puedes usar la clase `view-animate-single` o `view-animate-[animation]` para poder generar cualquier nombre a tu timeline.
@@ -115,3 +131,7 @@ Este plugin también trae una clase de utilidad para animar elementos basados en
 <a href="https://github.com/midudev/tailwind-animations/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=midudev/tailwind-animations" />
 </a>
+
+## Créditos
+
+- Utilidades `scroll-mask` inspiradas en [scroll-mask de Tim Wilson](https://twilson.net/scroll-mask).

@@ -5,6 +5,21 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [Unreleased]
+
+### Añadido
+- Utilidades **`scroll-mask`** para desvanecer los bordes de contenedores con scroll según la posición de scroll (CSS puro, sin JavaScript).
+  - Ejes: `scroll-mask-y`, `scroll-mask-x`, y `scroll-mask` (los cuatro bordes).
+  - Bordes individuales: `scroll-mask-t`, `scroll-mask-b`, `scroll-mask-l`, `scroll-mask-r`.
+  - Stops personalizables (como la familia `mask-*` de Tailwind): `scroll-mask-y-from-90%`, `scroll-mask-t-from-95%`, `scroll-mask-r-from-[calc(100%-2rem)]`, `scroll-mask-b-from-16`, etc.
+  - Usa `animation-timeline: scroll()`, `mask-image` y `@property` para interpolar el fade.
+  - Variables CSS con prefijo `--tw-scroll-mask-*`.
+  - Requiere soporte de navegador para `animation-timeline: scroll()`.
+  - Inspirado en [scroll-mask de Tim Wilson](https://twilson.net/scroll-mask).
+
+### Corregido
+- Renombrado `.github/instructions/*.instructions.md` → `project.instructions.md` porque el carácter `*` no es válido en rutas de Windows y rompía el clone de git al instalar la skill (`npx skills add …`). [#95](https://github.com/midudev/tailwind-animations/issues/95)
+
 ## [1.0.2] - 2026-07-18
 
 ### Añadido

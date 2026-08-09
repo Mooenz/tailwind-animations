@@ -82,7 +82,20 @@ Animations linked to user scrolling:
 </div>
 ```
 
-### 6. **Steps and Retro Animations**
+### 6. **Scroll Mask (fade overflow edges)**
+
+Fade the edges of scroll containers based on scroll position (pure CSS, no JS):
+
+```html
+<ul class="scroll-mask-y max-h-64 overflow-y-auto">…</ul>
+<div class="scroll-mask-x flex overflow-x-auto">…</div>
+<div class="scroll-mask-b-from-80% overflow-y-auto">…</div>
+```
+
+Utilities: `scroll-mask`, `scroll-mask-y|x|t|b|l|r`, and `scroll-mask-*-from-*`.
+Requires browser support for `animation-timeline: scroll()`.
+
+### 7. **Steps and Retro Animations**
 Support for pixel/retro-style animations with defined steps:
 - retro (8 steps), normal (16 steps), modern (24 steps)
 
