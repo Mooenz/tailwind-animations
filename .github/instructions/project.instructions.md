@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Copilot Instructions - Tailwind Animations
 
 You are assisting with the `tailwind-animations` project (a Tailwind CSS plugin/library that provides animation utilities, keyframes, and related helpers).
