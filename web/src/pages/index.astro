@@ -350,7 +350,7 @@ const dialogModifierExamples = [
           <template id='agent-install-prompt'>Install and use **tailwind-animations** in this project.
 
 ## What it is
-CSS-only animation utilities for **Tailwind CSS v4** (79+ `animate-*` classes: fade, slide, zoom, flip, bounce, jelly, dialog entry/exit, scroll/view timelines, etc.). No JS plugin — pure CSS import.
+CSS-only animation utilities for **Tailwind CSS v4** (79+ `animate-*` classes: fade, slide, zoom, flip, bounce, jelly, dialog entry/exit, scroll/view timelines, scroll-mask edge fades, etc.). No JS plugin — pure CSS import.
 
 ## Install the package
 ```bash
@@ -371,6 +371,7 @@ Peer: any Tailwind CSS v4 (`"tailwindcss": "4"`). For Tailwind v3 use legacy `@m
 <div class="animate-fade-in">Hello</div>
 <div class="animate-slide-in-bottom animate-delay-300 animate-duration-slow">…</div>
 <div class="animate-slide-in-left animate-slide-distance-[6rem]">…</div>
+<ul class="scroll-mask-y max-h-64 overflow-y-auto">…</ul>
 <dialog class="animate-dialog animate-dialog-from-top">…</dialog>
 ```
 
@@ -1558,6 +1559,252 @@ export default {
                   >
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id='scroll-mask'
+        class='relative mt-32 mb-24 px-4 lg:px-8'
+        aria-labelledby='scroll-mask-heading'
+      >
+        <div class='mx-auto mb-16 flex max-w-3xl flex-col items-center'>
+          <span
+            class='mb-4 rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1 text-xs font-bold tracking-wider text-violet-600 uppercase dark:text-violet-300'
+          >
+            Overflow polish
+          </span>
+          <h2
+            id='scroll-mask-heading'
+            class='mb-4 text-center text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white'
+          >
+            Scroll Mask Utilities
+          </h2>
+          <p
+            class='max-w-2xl text-center text-lg text-balance text-slate-600 dark:text-slate-400'
+          >
+            Fade the edges of scroll containers based on scroll position — pure CSS with
+            <code class='text-violet-500'>animation-timeline: scroll()</code>
+            and
+            <code class='text-violet-500'>mask-image</code>. No JavaScript.
+          </p>
+        </div>
+
+        <div
+          class='mx-auto max-w-[900px] rounded-3xl border border-slate-200 bg-slate-50/50 p-6 backdrop-blur-sm sm:p-10 dark:border-slate-800 dark:bg-slate-900/50'
+        >
+          <div class='grid grid-cols-1 gap-12 md:grid-cols-2'>
+            <!-- Vertical axis -->
+            <div class='flex flex-col gap-4'>
+              <h3 class='text-lg font-semibold dark:text-white'>
+                Vertical overflow
+              </h3>
+              <p class='text-sm text-slate-600 dark:text-slate-400'>
+                <code class='text-violet-500'>scroll-mask-y</code> fades top and bottom
+                edges as you scroll.
+              </p>
+              <div
+                class='scroll-mask-y h-56 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-950'
+              >
+                <ul class='space-y-2'>
+                  {
+                    [
+                      'Ganymede',
+                      'Titan',
+                      'Callisto',
+                      'Io',
+                      'Luna',
+                      'Europa',
+                      'Triton',
+                      'Titania',
+                      'Oberon',
+                      'Rhea',
+                      'Iapetus',
+                      'Charon'
+                    ].map((name, i) => (
+                      <li class='flex items-center justify-between rounded-xl bg-slate-100 px-3 py-2.5 text-sm font-medium text-slate-800 dark:bg-slate-900 dark:text-slate-100'>
+                        <span>{name}</span>
+                        <span class='font-mono text-xs text-slate-400'>
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+              <code
+                class='self-center rounded-lg bg-slate-900 px-3 py-2 font-mono text-xs text-violet-300'
+              >
+                scroll-mask-y
+              </code>
+            </div>
+
+            <!-- Horizontal axis -->
+            <div class='flex flex-col gap-4'>
+              <h3 class='text-lg font-semibold dark:text-white'>
+                Horizontal overflow
+              </h3>
+              <p class='text-sm text-slate-600 dark:text-slate-400'>
+                <code class='text-violet-500'>scroll-mask-x</code> for carousels and
+                chip rows.
+              </p>
+              <div
+                class='scroll-mask-x flex h-56 items-center overflow-x-auto rounded-2xl border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-950'
+              >
+                <div class='flex gap-3 pr-1'>
+                  {
+                    [
+                      '🚀',
+                      '⭐',
+                      '💎',
+                      '🎯',
+                      '🔥',
+                      '✨',
+                      '🎨',
+                      '💡',
+                      '🌈',
+                      '🎵',
+                      '⚡',
+                      '🌊'
+                    ].map((emoji) => (
+                      <div class='flex h-28 w-28 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-3xl dark:bg-slate-900'>
+                        {emoji}
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+              <code
+                class='self-center rounded-lg bg-slate-900 px-3 py-2 font-mono text-xs text-fuchsia-300'
+              >
+                scroll-mask-x
+              </code>
+            </div>
+
+            <!-- Single edges -->
+            <div class='flex flex-col gap-4 md:col-span-2'>
+              <h3 class='text-lg font-semibold dark:text-white'>
+                Single edges & custom stops
+              </h3>
+              <p class='text-sm text-slate-600 dark:text-slate-400'>
+                Directional utilities fade one edge. The
+                <code class='text-violet-500'>-from-*</code> suffix sets the opaque stop
+                (higher % = shorter fade). Supports spacing, percentages, and arbitrary
+                lengths.
+              </p>
+              <div class='grid grid-cols-1 gap-6 sm:grid-cols-3'>
+                <div class='flex flex-col gap-3'>
+                  <div
+                    class='scroll-mask-b-from-80% h-44 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-950'
+                  >
+                    <ul class='space-y-2'>
+                      {
+                        ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta'].map(
+                          (name) => (
+                            <li class='rounded-lg bg-slate-100 px-3 py-2 text-sm dark:bg-slate-900'>
+                              {name}
+                            </li>
+                          )
+                        )
+                      }
+                    </ul>
+                  </div>
+                  <code
+                    class='self-center rounded-lg bg-slate-900 px-2 py-1.5 font-mono text-[11px] text-emerald-300'
+                  >
+                    scroll-mask-b-from-80%
+                  </code>
+                </div>
+                <div class='flex flex-col gap-3'>
+                  <div
+                    class='scroll-mask-t-from-95% h-44 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-950'
+                  >
+                    <ul class='space-y-2'>
+                      {
+                        ['North', 'East', 'South', 'West', 'Zenith', 'Nadir', 'Core'].map(
+                          (name) => (
+                            <li class='rounded-lg bg-slate-100 px-3 py-2 text-sm dark:bg-slate-900'>
+                              {name}
+                            </li>
+                          )
+                        )
+                      }
+                    </ul>
+                  </div>
+                  <code
+                    class='self-center rounded-lg bg-slate-900 px-2 py-1.5 font-mono text-[11px] text-sky-300'
+                  >
+                    scroll-mask-t-from-95%
+                  </code>
+                </div>
+                <div class='flex flex-col gap-3'>
+                  <div
+                    class='scroll-mask-x-from-90% flex h-44 items-center overflow-x-auto rounded-2xl border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-950'
+                  >
+                    <div class='flex gap-2'>
+                      {
+                        Array.from({ length: 10 }, (_, i) => (
+                          <div class='flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-sm font-bold text-white'>
+                            {i + 1}
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+                  <code
+                    class='self-center rounded-lg bg-slate-900 px-2 py-1.5 font-mono text-[11px] text-amber-300'
+                  >
+                    scroll-mask-x-from-90%
+                  </code>
+                </div>
+              </div>
+            </div>
+
+            <!-- API reference -->
+            <div
+              class='grid grid-cols-1 gap-4 rounded-2xl border border-slate-200 bg-white p-5 md:col-span-2 dark:border-slate-800 dark:bg-slate-950'
+            >
+              <h3 class='text-base font-semibold dark:text-white'>
+                Utility reference
+              </h3>
+              <div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
+                <div class='flex flex-col gap-2'>
+                  <span class='text-xs font-bold tracking-wide text-slate-400 uppercase'
+                    >Axes</span
+                  >
+                  <code class='text-xs text-violet-500'>scroll-mask</code>
+                  <code class='text-xs text-violet-500'>scroll-mask-y</code>
+                  <code class='text-xs text-violet-500'>scroll-mask-x</code>
+                </div>
+                <div class='flex flex-col gap-2'>
+                  <span class='text-xs font-bold tracking-wide text-slate-400 uppercase'
+                    >Edges</span
+                  >
+                  <code class='text-xs text-emerald-500'>scroll-mask-t</code>
+                  <code class='text-xs text-emerald-500'>scroll-mask-b</code>
+                  <code class='text-xs text-emerald-500'>scroll-mask-l</code>
+                  <code class='text-xs text-emerald-500'>scroll-mask-r</code>
+                </div>
+                <div class='flex flex-col gap-2'>
+                  <span class='text-xs font-bold tracking-wide text-slate-400 uppercase'
+                    >Custom stops</span
+                  >
+                  <code class='text-xs text-amber-500'>scroll-mask-y-from-90%</code>
+                  <code class='text-xs text-amber-500'
+                    >scroll-mask-r-from-[calc(100%-2rem)]</code
+                  >
+                  <code class='text-xs text-amber-500'>scroll-mask-from-85%</code>
+                </div>
+              </div>
+              <p class='text-xs text-slate-500 dark:text-slate-400'>
+                Requires browser support for
+                <code class='text-slate-700 dark:text-slate-300'
+                  >animation-timeline: scroll()</code
+                >. Default fade stop is
+                <code class='text-slate-700 dark:text-slate-300'>80%</code>
+                (opaque until 80%, then fade to the edge).
+              </p>
             </div>
           </div>
         </div>

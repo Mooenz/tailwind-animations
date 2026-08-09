@@ -44,6 +44,7 @@ Peer: any Tailwind CSS v4 (`"tailwindcss": "4"`).
 <div class="animate-slide-in-left animate-slide-distance-[6rem]">
   Custom distance
 </div>
+<ul class="scroll-mask-y max-h-64 overflow-y-auto">…</ul>
 ```
 
 ## Features
@@ -51,6 +52,7 @@ Peer: any Tailwind CSS v4 (`"tailwindcss": "4"`).
 - Entrance/exit: fade, slide, zoom, flip, roll
 - Attention: bounce, shake, tada, jelly, wobble, pulse
 - Scroll-driven: timeline-view / timeline-scroll + animate-range
+- Scroll mask: scroll-mask / scroll-mask-y|x|t|b|l|r (+ -from-*) fade overflow edges
 - Dialog: animate-dialog (+ from-*, fade, zoom, duration)
 - Slide distance: animate-slide-distance-[…]
 - Playground with shareable URL state (?a=&d=&delay=&s=&i=&f=&p=)

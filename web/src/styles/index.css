@@ -21,6 +21,8 @@
 @source inline('animate-range-{cover,contain,entry,exit,gradual,moderate,brisk,rapid}');
 /* prettier-ignore */
 @source inline('animate-slide-distance-[50%] animate-slide-distance-[100%] animate-slide-distance-[6rem] animate-slide-distance-[10rem]');
+/* prettier-ignore */
+@source inline('scroll-mask scroll-mask-{y,x,t,b,l,r} scroll-mask-y-from-90% scroll-mask-x-from-90% scroll-mask-t-from-95% scroll-mask-b-from-80% scroll-mask-r-from-[calc(100%-2rem)]');
 
 :root {
   --font-sans:

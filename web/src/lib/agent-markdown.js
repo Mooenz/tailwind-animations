@@ -83,6 +83,7 @@ npm install tailwind-animations
 - \`#slide-distance\` — slide distance demos (if present)
 - \`#scroll-animations\` — scroll-driven motion
 - \`#scroll-view-timelines\` — view/scroll timelines
+- \`#scroll-mask\` — fade overflow edges by scroll position (\`scroll-mask-*\`)
 - \`#dialog-effects\` — native \`<dialog>\` entry/exit (\`animate-dialog\`)
 - \`#faq\` — FAQ
 - Playground CTA → \`${SITE}/playground/\`
@@ -114,6 +115,7 @@ ${fills.map((k) => `\`${k}\``).join(', ')}
 - Play state: \`animate-play-running\`, \`animate-play-paused\`
 - Slide distance: \`animate-slide-distance-[…]\` (length or %)
 - Timeline: \`timeline-scroll\`, \`timeline-view\`, \`animate-range-*\`
+- Scroll mask: \`scroll-mask\`, \`scroll-mask-y|x|t|b|l|r\`, \`scroll-mask-*-from-*\` (fade edges by scroll; needs \`animation-timeline: scroll()\`)
 - Dialog: \`animate-dialog\`, \`animate-dialog-from-*\`, \`animate-dialog-fade|zoom\`, \`animate-dialog-duration-*\`
 
 ## Playground URL state
@@ -280,6 +282,22 @@ CSS variable: \`--tw-anim-slide-distance\` (default \`20px\`).
 <div class="timeline-scroll animate-rotate-360">…</div>
 <div class="animate-zoom-in timeline-view animate-range-entry">…</div>
 \`\`\`
+
+### Scroll mask (fade overflow edges)
+
+Pure CSS via \`animation-timeline: scroll()\` + \`mask-image\`. Apply on the scroll container.
+
+\`\`\`html
+<ul class="scroll-mask-y max-h-64 overflow-y-auto">…</ul>
+<div class="scroll-mask-x flex overflow-x-auto">…</div>
+<div class="scroll-mask-b-from-80% overflow-y-auto">…</div>
+<div class="scroll-mask-r-from-[calc(100%-2rem)] overflow-x-auto">…</div>
+\`\`\`
+
+- Axes: \`scroll-mask\`, \`scroll-mask-y\`, \`scroll-mask-x\` (+ \`-from-*\`)
+- Edges: \`scroll-mask-t|b|l|r\` (+ \`-from-*\`)
+- Default opaque stop: \`80%\`. CSS vars: \`--tw-scroll-mask-*\`
+- Requires browser support for \`animation-timeline: scroll()\`
 
 ### Dialog (native \`<dialog>\`)
 
