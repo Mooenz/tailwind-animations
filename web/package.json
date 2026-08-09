@@ -11,14 +11,14 @@
     "lint": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
   },
   "dependencies": {
-    "@astrojs/check": "0.9.9",
+    "@astrojs/check": "0.9.10",
     "@astrojs/sitemap": "3.7.3",
-    "@fontsource-variable/geist-mono": "5.2.8",
-    "@tailwindcss/vite": "4.3.2",
-    "astro": "7.0.7",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.2.0",
     "tailwind-animations": "workspace:*",
-    "tailwindcss": "4.3.2",
+    "tailwindcss": "4.3.3",
     "typescript": "6.0.3",
-    "vite": "8.1.4"
+    "vite": "8.2.0"
   }
 }
