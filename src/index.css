@@ -916,3 +916,217 @@
 @utility animate-slide-distance-* {
   --tw-anim-slide-distance: --value([length], [percentage], [*]);
 }
+
+/* ============================================
+   Scroll Mask — fade container edges by scroll position
+   Pure CSS via animation-timeline: scroll() + mask-image.
+   Inspired by https://twilson.net/scroll-mask (Tim Wilson).
+   Requires browser support for animation-timeline: scroll().
+   ============================================ */
+
+@property --tw-scroll-mask-t-from {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --tw-scroll-mask-b-from {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --tw-scroll-mask-l-from {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --tw-scroll-mask-r-from {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@keyframes scroll-mask-y-scroll {
+  0% {
+    --tw-scroll-mask-t-from: 100%;
+  }
+  10%,
+  100% {
+    --tw-scroll-mask-t-from: var(--tw-scroll-mask-fade-from-t, 100%);
+  }
+  0%,
+  90% {
+    --tw-scroll-mask-b-from: var(--tw-scroll-mask-fade-from-b, 100%);
+  }
+  100% {
+    --tw-scroll-mask-b-from: 100%;
+  }
+}
+
+@keyframes scroll-mask-x-scroll {
+  0% {
+    --tw-scroll-mask-l-from: 100%;
+  }
+  10%,
+  100% {
+    --tw-scroll-mask-l-from: var(--tw-scroll-mask-fade-from-l, 100%);
+  }
+  0%,
+  90% {
+    --tw-scroll-mask-r-from: var(--tw-scroll-mask-fade-from-r, 100%);
+  }
+  100% {
+    --tw-scroll-mask-r-from: 100%;
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  @layer utilities {
+    /*
+     * Apply mask machinery to any scroll-mask* class, including variants
+     * like md:scroll-mask-y (attribute substring match is intentional).
+     */
+    :where([class*="scroll-mask"]) {
+      --tw-scroll-mask-t: linear-gradient(
+        to top,
+        #000,
+        #000 var(--tw-scroll-mask-t-from),
+        transparent
+      );
+      --tw-scroll-mask-b: linear-gradient(
+        to bottom,
+        #000,
+        #000 var(--tw-scroll-mask-b-from),
+        transparent
+      );
+      --tw-scroll-mask-l: linear-gradient(
+        to left,
+        #000,
+        #000 var(--tw-scroll-mask-l-from),
+        transparent
+      );
+      --tw-scroll-mask-r: linear-gradient(
+        to right,
+        #000,
+        #000 var(--tw-scroll-mask-r-from),
+        transparent
+      );
+      -webkit-mask-image:
+        var(--tw-scroll-mask-t),
+        var(--tw-scroll-mask-b),
+        var(--tw-scroll-mask-l),
+        var(--tw-scroll-mask-r);
+      mask-image:
+        var(--tw-scroll-mask-t),
+        var(--tw-scroll-mask-b),
+        var(--tw-scroll-mask-l),
+        var(--tw-scroll-mask-r);
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+      animation:
+        scroll-mask-y-scroll linear,
+        scroll-mask-x-scroll linear;
+      animation-timeline: scroll(self block), scroll(self inline);
+    }
+  }
+}
+
+/* All four edges */
+@utility scroll-mask {
+  --tw-scroll-mask-fade-from-t: 80%;
+  --tw-scroll-mask-fade-from-b: 80%;
+  --tw-scroll-mask-fade-from-l: 80%;
+  --tw-scroll-mask-fade-from-r: 80%;
+}
+
+@utility scroll-mask-from-* {
+  --tw-scroll-mask-fade-from-t: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-t: --value(percentage);
+  --tw-scroll-mask-fade-from-t: --value([length], [percentage]);
+  --tw-scroll-mask-fade-from-b: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-b: --value(percentage);
+  --tw-scroll-mask-fade-from-b: --value([length], [percentage]);
+  --tw-scroll-mask-fade-from-l: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-l: --value(percentage);
+  --tw-scroll-mask-fade-from-l: --value([length], [percentage]);
+  --tw-scroll-mask-fade-from-r: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-r: --value(percentage);
+  --tw-scroll-mask-fade-from-r: --value([length], [percentage]);
+}
+
+/* Vertical axis */
+@utility scroll-mask-y {
+  --tw-scroll-mask-fade-from-t: 80%;
+  --tw-scroll-mask-fade-from-b: 80%;
+}
+
+@utility scroll-mask-y-from-* {
+  --tw-scroll-mask-fade-from-t: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-t: --value(percentage);
+  --tw-scroll-mask-fade-from-t: --value([length], [percentage]);
+  --tw-scroll-mask-fade-from-b: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-b: --value(percentage);
+  --tw-scroll-mask-fade-from-b: --value([length], [percentage]);
+}
+
+/* Horizontal axis */
+@utility scroll-mask-x {
+  --tw-scroll-mask-fade-from-l: 80%;
+  --tw-scroll-mask-fade-from-r: 80%;
+}
+
+@utility scroll-mask-x-from-* {
+  --tw-scroll-mask-fade-from-l: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-l: --value(percentage);
+  --tw-scroll-mask-fade-from-l: --value([length], [percentage]);
+  --tw-scroll-mask-fade-from-r: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-r: --value(percentage);
+  --tw-scroll-mask-fade-from-r: --value([length], [percentage]);
+}
+
+/* Single edges */
+@utility scroll-mask-t {
+  --tw-scroll-mask-fade-from-t: 80%;
+}
+
+@utility scroll-mask-t-from-* {
+  --tw-scroll-mask-fade-from-t: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-t: --value(percentage);
+  --tw-scroll-mask-fade-from-t: --value([length], [percentage]);
+}
+
+@utility scroll-mask-b {
+  --tw-scroll-mask-fade-from-b: 80%;
+}
+
+@utility scroll-mask-b-from-* {
+  --tw-scroll-mask-fade-from-b: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-b: --value(percentage);
+  --tw-scroll-mask-fade-from-b: --value([length], [percentage]);
+}
+
+@utility scroll-mask-l {
+  --tw-scroll-mask-fade-from-l: 80%;
+}
+
+@utility scroll-mask-l-from-* {
+  --tw-scroll-mask-fade-from-l: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-l: --value(percentage);
+  --tw-scroll-mask-fade-from-l: --value([length], [percentage]);
+}
+
+@utility scroll-mask-r {
+  --tw-scroll-mask-fade-from-r: 80%;
+}
+
+@utility scroll-mask-r-from-* {
+  --tw-scroll-mask-fade-from-r: --spacing(--value(integer));
+  --tw-scroll-mask-fade-from-r: --value(percentage);
+  --tw-scroll-mask-fade-from-r: --value([length], [percentage]);
+}

@@ -358,4 +358,72 @@ describe('tailwindcss-animations plugins', () => {
       'translateY(calc(var(--tw-anim-slide-distance, 20px) * -1))'
     )
   })
+
+  it('includes scroll-mask base styles and keyframes', async () => {
+    const css = await generatePluginCSS({
+      content: '<div class="scroll-mask-y overflow-y-auto">Hello</div>'
+    })
+
+    expect(css).toContain('@property --tw-scroll-mask-t-from')
+    expect(css).toContain('@keyframes scroll-mask-y-scroll')
+    expect(css).toContain('@keyframes scroll-mask-x-scroll')
+    expect(css).toContain('animation-timeline:scroll(self block), scroll(self inline)')
+    expect(css).toContain('mask-composite:intersect')
+    expect(css).toContain('mask-size:100% 100%')
+    expect(css).toContain('.scroll-mask-y{')
+    expect(css).toContain('--tw-scroll-mask-fade-from-t:80%')
+    expect(css).toContain('--tw-scroll-mask-fade-from-b:80%')
+  })
+
+  it('use scroll-mask axis and edge utilities', async () => {
+    const css = await generatePluginCSS({
+      content:
+        '<div class="scroll-mask scroll-mask-x scroll-mask-t scroll-mask-b scroll-mask-l scroll-mask-r">Hello</div>'
+    })
+
+    expect(css).toContain(
+      '.scroll-mask{--tw-scroll-mask-fade-from-t:80%;--tw-scroll-mask-fade-from-b:80%;--tw-scroll-mask-fade-from-l:80%;--tw-scroll-mask-fade-from-r:80%;}'
+    )
+    expect(css).toContain(
+      '.scroll-mask-x{--tw-scroll-mask-fade-from-l:80%;--tw-scroll-mask-fade-from-r:80%;}'
+    )
+    expect(css).toContain('.scroll-mask-t{--tw-scroll-mask-fade-from-t:80%;}')
+    expect(css).toContain('.scroll-mask-b{--tw-scroll-mask-fade-from-b:80%;}')
+    expect(css).toContain('.scroll-mask-l{--tw-scroll-mask-fade-from-l:80%;}')
+    expect(css).toContain('.scroll-mask-r{--tw-scroll-mask-fade-from-r:80%;}')
+  })
+
+  it('use scroll-mask from percentage and length stops', async () => {
+    const css = await generatePluginCSS({
+      content:
+        '<div class="scroll-mask-y-from-90% scroll-mask-t-from-95% scroll-mask-b-from-80% scroll-mask-x-from-90% scroll-mask-r-from-[calc(100%-2rem)] scroll-mask-from-85%">Hello</div>'
+    })
+
+    expect(css).toContain(
+      '.scroll-mask-y-from-90\\%{--tw-scroll-mask-fade-from-t:90%;--tw-scroll-mask-fade-from-b:90%;}'
+    )
+    expect(css).toContain(
+      '.scroll-mask-t-from-95\\%{--tw-scroll-mask-fade-from-t:95%;}'
+    )
+    expect(css).toContain(
+      '.scroll-mask-b-from-80\\%{--tw-scroll-mask-fade-from-b:80%;}'
+    )
+    expect(css).toContain(
+      '.scroll-mask-x-from-90\\%{--tw-scroll-mask-fade-from-l:90%;--tw-scroll-mask-fade-from-r:90%;}'
+    )
+    expect(css).toContain('--tw-scroll-mask-fade-from-r:calc(100% - 2rem)')
+    expect(css).toContain(
+      '.scroll-mask-from-85\\%{--tw-scroll-mask-fade-from-t:85%;--tw-scroll-mask-fade-from-b:85%;--tw-scroll-mask-fade-from-l:85%;--tw-scroll-mask-fade-from-r:85%;}'
+    )
+  })
+
+  it('use scroll-mask from spacing scale values', async () => {
+    const css = await generatePluginCSS({
+      content: '<div class="scroll-mask-b-from-16">Hello</div>'
+    })
+
+    expect(css).toContain(
+      '.scroll-mask-b-from-16{--tw-scroll-mask-fade-from-b:calc(var(--spacing) * 16);}'
+    )
+  })
 })
